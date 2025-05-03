@@ -42,9 +42,9 @@ sun_img = pygame.transform.scale(sun_img, (120, 120))
 
 options = {
     "Black Hole": "When a massive star dies, it becomes very dence and compact, becoming a black hole. Another way black holes form is when gas collapses directly which is the result of a even more massive black hole, 1000 to 100,000 times the mass pf the sun.",
-    "Neutron Star": "Absorb energy to grow!",
-    "Exoplanet": "Search for habitable worlds!",
-    "Dark Matter": "Uncover the hidden mysteries!"
+    "Neutron Star": "Neutron Stars are formed when a star with less mass runs out of fuel. They crush together all protons and electrons into neutrons. Neutron Stars are usually found spinning uncontrollably with extreme magnetic fields.",
+    "Exoplanet": "Exoplanets are planets that are habitable for humans that are outside out solar system. They are planets that have features similar to Earth.",
+    "Dark Matter": "Dark matter makes up most of the mass of galaxies and galaxy clusters, and is responsible for the way galaxies are organized on grand scales. It works like an attractive force that holds our universe together. Dark matter interacts with gravity, but it doesn’t reflect, absorb, or emit light."
 }
 
 running = True

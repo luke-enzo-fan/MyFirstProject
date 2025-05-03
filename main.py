@@ -213,7 +213,10 @@ object_x, object_y = 500, 500
 
 def draw_animated_model(option):
     image = None
-    size = (800, 800)
+    if option in ("Exoplanet", "Dark Matter"):
+        size = (150, 150)
+    else:
+        size = (800, 800)
     if option == "Black Hole":
         image = black_hole_img
     elif option == "Neutron Star":

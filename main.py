@@ -188,23 +188,6 @@ class Planet:
     def draw(self):
         screen.blit(self.image, (self.x - camera_x - self.image.get_width()//2,
                                   self.y - camera_y - self.image.get_height()//2))
-    #
-    # #mom-code
-    # def update_orbit(self, center_x, center_y):
-    #     """Update the planet's position by moving along its orbit."""
-    #     self.angle += math.radians(self.speed)  # Convert speed to radians
-    #     self.x = center_x + math.cos(self.angle) * self.orbit_radius
-    #     self.y = center_y + math.sin(self.angle) * self.orbit_radius
-    #     self.rect.center = (self.x, self.y)  # Update rect position
-    #
-    # def draw(self, screen, camera_x, camera_y):
-    #     """Draw the planet relative to the camera position."""
-    #     screen.blit(self.image, (self.x - camera_x - self.image.get_width() // 2,
-    #                              self.y - camera_y - self.image.get_height() // 2))
-    #
-    # def get_rect(self):
-    #     """Return the rectangle of the planet."""
-    #     return self.rect
 
 def explode_player():
     global player, game_over
@@ -376,9 +359,6 @@ while running:
     else:
         draw_animated_model(selected_option)
 
-        # global orbit_angle
-        # orbit_angle += 0.01  # Controls orbit speed
-
         if selected_option in ["Black Hole", "Neutron Star"]:
             center_x, center_y = object_x - camera_x, object_y - camera_y
         elif selected_option in ["Dark Matter", "Exoplanet"]:
@@ -411,18 +391,6 @@ while running:
 
         player.apply_gravity(object_x, object_y, selected_option)
         player.draw()
-
-        # object_x = width // 2 + camera_x
-        # object_y = height // 2 + camera_y
-        # object_x = WIDTH // 2 + camera_x
-        # object_y = HEIGHT // 2 + camera_y
-
-
-    # for planet in planets:
-    #     planet.update(center_x, center_y)
-    #     planet.draw()
-
-
 
     for bullet in bullets[:]:
         bullet.move()

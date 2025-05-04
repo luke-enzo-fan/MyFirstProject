@@ -212,8 +212,9 @@ object_x, object_y = 500, 500
 
 def draw_animated_model(option):
     global orbit_angle
-    sun_rect = sun_img.get_rect(center=(object_x - camera_x, object_y - camera_y))
-    screen.blit(sun_img, sun_rect)
+    if option in ("Exoplanet", "Dark Matter"):
+        sun_rect = sun_img.get_rect(center=(object_x - camera_x, object_y - camera_y))
+        screen.blit(sun_img, sun_rect)
 
     if option in ("Exoplanet", "Dark Matter"):
         orbit_angle += 0.01

@@ -36,7 +36,7 @@ planet1_img = pygame.image.load("../images/planet.png")
 planet2_img = pygame.image.load("../images/planet2.png")
 planet3_img = pygame.image.load("../images/planet3.png")
 sun_img = pygame.image.load("../images/sun.png")
-sun_img = pygame.transform.scale(sun_img, (120, 120))
+sun_img = pygame.transform.scale(sun_img, (800, 800))
 
 
 
@@ -204,7 +204,6 @@ def explode_player():
 def reset_player():
     global player
     player = Player()
-    # respawn the player away from the gravity object so they don't die immediately
     player.x = object_x + 300
     player.y = object_y
 
@@ -212,23 +211,25 @@ def reset_player():
 object_x, object_y = 500, 500
 
 def draw_animated_model(option):
-    image = None
+    global orbit_angle
+    sun_rect = sun_img.get_rect(center=(object_x - camera_x, object_y - camera_y))
+    screen.blit(sun_img, sun_rect)
+
     if option in ("Exoplanet", "Dark Matter"):
-        size = (150, 150)
+        orbit_angle += 0.01
+        radius = 300
+        phen_x = object_x + math.cos(orbit_angle) * radius
+        phen_y = object_y + math.sin(orbit_angle) * radius
+        img = exoplanet_img if option == "Exoplanet" else dark_matter_img
+        phen_scaled = pygame.transform.scale(img, (150, 150))
+        rect = phen_scaled.get_rect(center=(phen_x - camera_x, phen_y - camera_y))
+        screen.blit(phen_scaled, rect)
     else:
-        size = (800, 800)
-    if option == "Black Hole":
-        image = black_hole_img
-    elif option == "Neutron Star":
-        image = neutron_star_img
-    elif option == "Exoplanet":
-        image = exoplanet_img
-    elif option == "Dark Matter":
-        image = dark_matter_img
-    if image:
-        scaled = pygame.transform.scale(image, size)
+        img = black_hole_img if option == "Black Hole" else neutron_star_img
+        scaled = pygame.transform.scale(img, (800, 800))
         rect = scaled.get_rect(center=(object_x - camera_x, object_y - camera_y))
         screen.blit(scaled, rect)
+
 
 def draw_minimap():
     minimap = pygame.Rect(WIDTH - 160, HEIGHT - 160, 150, 150)
@@ -286,7 +287,6 @@ class Bullet:
 
 stars = [(random.randint(0, WIDTH), random.randint(0, HEIGHT), random.uniform(0.2, 0.7)) for _ in range(100)]
 player = Player()
-# spawn the player a safe distance from the central object
 player.x = object_x + 600
 player.y = object_y
 
@@ -369,9 +369,7 @@ while running:
             sun_rect = sun_img.get_rect(center=(center_x, center_y))
             screen.blit(sun_img, sun_rect)
 
-        # update & draw all planets in orbit around the selected object
         for planet in planets:
-            # compute the planet's world‑space position
             planet.update(object_x, object_y)
             # update its rect so tooltips/collisions align
             planet.rect.center = (planet.x - camera_x, planet.y - camera_y)
